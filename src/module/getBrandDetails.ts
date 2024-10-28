@@ -1,22 +1,23 @@
 import { brandService } from "@developeruche/protocol-core";
-import { magic } from "../lib/magic";
 import { BrandDetailsProps, GetBrandDetailsProps } from "../lib/types";
-
 export async function getBrandDetailsFN({
   email,
+  magic,
   getOnlyId = false,
   setLoading,
   setError,
-}: GetBrandDetailsProps): Promise<
-  { brandId: string } | Promise<{ brandDetails: BrandDetailsProps }> | undefined
-> {
+  OPEN_REWARD_DIAMOND,
+  JSON_RPC_URL,
+}: GetBrandDetailsProps): Promise<{ brandId: string } | Promise<{ brandDetails: BrandDetailsProps }> | undefined> {
   setLoading(true);
   try {
     if (!(await magic.user.isLoggedIn())) {
       await magic.auth.loginWithEmailOTP({ email });
       const loggedInUserInfo = await magic.user.getInfo().then((info: any) => info);
       const brandDetails: BrandDetailsProps = await brandService.getBrandConfigByAddress(
-        loggedInUserInfo.publicAddress
+        loggedInUserInfo.publicAddress,
+        JSON_RPC_URL,
+        OPEN_REWARD_DIAMOND
       );
       if (getOnlyId) {
         return { brandId: brandDetails.brandId };
@@ -26,7 +27,9 @@ export async function getBrandDetailsFN({
     } else {
       const loggedInUserInfo = await magic.user.getInfo().then((info: any) => info);
       const brandDetails: BrandDetailsProps = await brandService.getBrandConfigByAddress(
-        loggedInUserInfo.publicAddress
+        loggedInUserInfo.publicAddress,
+        JSON_RPC_URL,
+        OPEN_REWARD_DIAMOND
       );
       if (getOnlyId) {
         return { brandId: brandDetails.brandId };

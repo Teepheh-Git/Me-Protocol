@@ -1,6 +1,4 @@
-import { magic } from "../lib/magic";
-
-export async function logOutFn(clearCache?: boolean) {
+export async function logOutFn(magic: any, clearCache?: boolean) {
   try {
     return await magic.user.logout();
   } catch (error) {

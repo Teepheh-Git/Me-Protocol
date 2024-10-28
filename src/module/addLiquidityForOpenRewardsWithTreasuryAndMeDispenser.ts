@@ -1,21 +1,12 @@
 import { ethers } from "ethers";
-import { magic } from "../lib/magic";
 import { createWeb3 } from "../lib/web3";
-import {
-  ME_TOKEN,
-  OPEN_REWARD_DIAMOND,
-  TREASURY,
-  VaultPermitParams,
-  brandService,
-  defaultProvider,
-  relay,
-  signConsent,
-} from "@developeruche/protocol-core";
+import { delay } from "../helpers/delay";
+import { VaultPermitParams, brandService, relay, signConsent } from "@developeruche/protocol-core";
 import { AddLiquidityForOpenRewardsWithTreasuryAndMeDispenserAndStartPoolProps } from "../lib/types";
 import axios from "axios";
-
 export async function addLiquidityForOpenRewardsWithTreasuryAndMeDispenserFN({
   email,
+  magic,
   rewardAmount,
   meAmount,
   rewardAddress,
@@ -28,6 +19,10 @@ export async function addLiquidityForOpenRewardsWithTreasuryAndMeDispenserFN({
   persist,
   GELATO_API_KEY,
   debug,
+  OPEN_REWARD_DIAMOND,
+  JSON_RPC_URL,
+  CHAIN_ID,
+  ME_TOKEN,
 }: AddLiquidityForOpenRewardsWithTreasuryAndMeDispenserAndStartPoolProps) {
   setLoading(true);
 
@@ -38,7 +33,7 @@ export async function addLiquidityForOpenRewardsWithTreasuryAndMeDispenserFN({
       await magic.auth.loginWithEmailOTP({ email });
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
       const accounts = await magicWeb3.eth.getAccounts();
@@ -81,7 +76,9 @@ export async function addLiquidityForOpenRewardsWithTreasuryAndMeDispenserFN({
         rewardAddress,
         ethers.utils.parseEther(rewardAmount),
         ethers.utils.parseEther(meAmount),
-        GTP?.data
+        GTP?.data,
+        JSON_RPC_URL,
+        OPEN_REWARD_DIAMOND
       );
 
       const relayInput = {
@@ -100,12 +97,23 @@ export async function addLiquidityForOpenRewardsWithTreasuryAndMeDispenserFN({
 
       // 0xb6933fa10F5179FA2de6C8B1D0C5B0A9A5B87327;
 
-      const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+      const { taskId }: { taskId: string } = await relay(
+        relayInput,
+        signer,
+        meApiKey,
+        reqURL,
+        GELATO_API_KEY,
+        JSON_RPC_URL,
+        CHAIN_ID,
+        OPEN_REWARD_DIAMOND,
+        costPayerId,
+        debug
+      );
       return { taskId };
     } else {
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
 
@@ -116,7 +124,7 @@ export async function addLiquidityForOpenRewardsWithTreasuryAndMeDispenserFN({
         await magic.auth.loginWithEmailOTP({ email });
         let isConnected = magicWeb3;
         while (!isConnected) {
-          await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+          await delay(1000); // Wait for 1 second
           isConnected = magicWeb3;
         }
         const accounts = await magicWeb3.eth.getAccounts();
@@ -158,7 +166,9 @@ export async function addLiquidityForOpenRewardsWithTreasuryAndMeDispenserFN({
           rewardAddress,
           ethers.utils.parseEther(rewardAmount),
           ethers.utils.parseEther(meAmount),
-          GTP?.data
+          GTP?.data,
+          JSON_RPC_URL,
+          OPEN_REWARD_DIAMOND
         );
 
         const relayInput = {
@@ -177,7 +187,18 @@ export async function addLiquidityForOpenRewardsWithTreasuryAndMeDispenserFN({
 
         // 0xb6933fa10F5179FA2de6C8B1D0C5B0A9A5B87327;
 
-        const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+        const { taskId }: { taskId: string } = await relay(
+          relayInput,
+          signer,
+          meApiKey,
+          reqURL,
+          GELATO_API_KEY,
+          JSON_RPC_URL,
+          CHAIN_ID,
+          OPEN_REWARD_DIAMOND,
+          costPayerId,
+          debug
+        );
         return { taskId };
       }
       const accounts = await magicWeb3.eth.getAccounts();
@@ -219,7 +240,9 @@ export async function addLiquidityForOpenRewardsWithTreasuryAndMeDispenserFN({
         rewardAddress,
         ethers.utils.parseEther(rewardAmount),
         ethers.utils.parseEther(meAmount),
-        GTP?.data
+        GTP?.data,
+        JSON_RPC_URL,
+        OPEN_REWARD_DIAMOND
       );
 
       const relayInput = {
@@ -241,7 +264,18 @@ export async function addLiquidityForOpenRewardsWithTreasuryAndMeDispenserFN({
 
       // 0xb6933fa10F5179FA2de6C8B1D0C5B0A9A5B87327;
 
-      const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+      const { taskId }: { taskId: string } = await relay(
+        relayInput,
+        signer,
+        meApiKey,
+        reqURL,
+        GELATO_API_KEY,
+        JSON_RPC_URL,
+        CHAIN_ID,
+        OPEN_REWARD_DIAMOND,
+        costPayerId,
+        debug
+      );
       return { taskId };
     }
   } catch (error) {

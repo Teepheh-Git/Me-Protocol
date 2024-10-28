@@ -1,12 +1,12 @@
 import { ethers } from "ethers";
-import { magic } from "../lib/magic";
 import { createWeb3 } from "../lib/web3";
+import { delay } from "../helpers/delay";
 import { sendTransactionData, remove_reward_manager_magic } from "@developeruche/runtime-sdk";
 import axios from "axios";
-import { AddRewardMagicProps, RemoveRewardMagicProps } from "../lib/types";
-
+import { RemoveRewardMagicProps } from "../lib/types";
 export async function removeRewardManagerFN({
   email,
+  magic,
   setLoading,
   setSpendLoading,
   setSpendingSteps,
@@ -28,7 +28,7 @@ export async function removeRewardManagerFN({
       await magic.auth.loginWithEmailOTP({ email });
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
       const accounts = await magicWeb3.eth.getAccounts();
@@ -83,7 +83,7 @@ export async function removeRewardManagerFN({
     } else {
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
       const { email: connectedEmail } = await magic.user.getInfo();
@@ -94,7 +94,7 @@ export async function removeRewardManagerFN({
         await magic.auth.loginWithEmailOTP({ email });
         let isConnected = magicWeb3;
         while (!isConnected) {
-          await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+          await delay(1000); // Wait for 1 second
           isConnected = magicWeb3;
         }
         const accounts = await magicWeb3.eth.getAccounts();

@@ -1,12 +1,12 @@
 import { ethers } from "ethers";
-import { magic } from "../lib/magic";
 import { createWeb3 } from "../lib/web3";
+import { delay } from "../helpers/delay";
 import { same_brand_reward_redeption_magic, sendTransactionData } from "@developeruche/runtime-sdk";
 import axios from "axios";
 import { spendRewardsOnIssuingBrandWithVaultPermitProps } from "../lib/types";
-
 export async function spendRewardsOnIssuingBrandWithVaultPermitFN({
   email,
+  magic,
   reward_amount,
   reward_address,
   rewardId,
@@ -28,7 +28,7 @@ export async function spendRewardsOnIssuingBrandWithVaultPermitFN({
       await magic.auth.loginWithEmailOTP({ email });
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
       const accounts = await magicWeb3.eth.getAccounts();
@@ -91,7 +91,7 @@ export async function spendRewardsOnIssuingBrandWithVaultPermitFN({
     } else {
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
 
@@ -103,7 +103,7 @@ export async function spendRewardsOnIssuingBrandWithVaultPermitFN({
         await magic.auth.loginWithEmailOTP({ email });
         let isConnected = magicWeb3;
         while (!isConnected) {
-          await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+          await delay(1000); // Wait for 1 second
           isConnected = magicWeb3;
         }
         const accounts = await magicWeb3.eth.getAccounts();

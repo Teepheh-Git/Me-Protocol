@@ -1,5 +1,5 @@
 import { sendTransactionData } from "@developeruche/runtime-sdk/dist/utils/interfaces";
-import { BigNumber, BigNumberish, Wallet } from "ethers";
+import { BigNumber, BigNumberish } from "ethers";
 import { Dispatch, SetStateAction } from "react";
 
 export interface MeProtocolProviderProps {
@@ -7,6 +7,14 @@ export interface MeProtocolProviderProps {
   email: string;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  OPEN_REWARD_IMPLEMENTATION: string;
+  JSON_RPC_URL: string;
+  ME_TOKEN: string;
+  magicApiKey: string;
+  CHAIN_ID: number;
+  TREASURY: string;
+  VAULT: string;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
@@ -18,7 +26,7 @@ export interface MeProtocolProviderProps {
 //   meApiKey: string;
 //   reqURL: string; GELATO_API_KEY:string;
 //   costPayerId?: string;
-//   email: string;
+//   email: string; magic:any
 //   brandName: string;
 //   onlinePresence: string;
 // }
@@ -28,10 +36,14 @@ export interface CreateRewardProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   name: string;
   symbol: string;
   descriptionLink: string;
@@ -42,6 +54,7 @@ export interface OnBoardRewardsProps {
   setLoading: Dispatch<SetStateAction<boolean>>;
   setError: Dispatch<SetStateAction<unknown>>;
   email: string;
+  magic: any;
   reward_address: string;
   brand_id: BigNumber;
   persist: boolean;
@@ -53,10 +66,17 @@ export interface DeployRewardAndPoolProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  TREASURY: string;
+  VAULT: string;
+  OPEN_REWARD_IMPLEMENTATION: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   brandId: string;
   name: string;
   symbol: string;
@@ -77,10 +97,15 @@ export interface AddLiquidityForOpenRewardsWithTreasuryAndMeDispenserAndStartPoo
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  ME_TOKEN: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   currentBrandId: string;
   rewardAddress: string;
   rewardAmount: string;
@@ -92,11 +117,17 @@ export interface DistributeRewardsProps {
   setLoading: Dispatch<SetStateAction<boolean>>;
   setError: Dispatch<SetStateAction<unknown>>;
   email: string;
+  magic: any;
   reward_address: string;
   reward_recipient: Array<string>;
   reward_amounts: Array<BigNumber>;
   persist: boolean;
   RUNTIME_URL: string;
+}
+export interface MagicProps {
+  key: string;
+  CHAIN_ID: number;
+  JSON_RPC_URL: string;
 }
 
 export interface spendRewardsOnIssuingBrandWithVaultPermitProps {
@@ -106,9 +137,13 @@ export interface spendRewardsOnIssuingBrandWithVaultPermitProps {
   setSpendingSteps: Dispatch<SetStateAction<number>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   email: string;
+  magic: any;
   reward_amount: BigNumber;
   reward_address: string;
   rewardId: string;
@@ -122,10 +157,14 @@ export interface ChangeOptimalOpenRewardProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   rewardName: string;
   newOptimalValue: number;
 }
@@ -135,10 +174,16 @@ export interface SetUpOpenRewardProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
+  OPEN_REWARD_IMPLEMENTATION: string;
+  ME_TOKEN: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   rewardAddress: string;
   rOptimal: number;
   maximumRLimit: number;
@@ -154,16 +199,21 @@ export interface SetUpWalletProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   persist: boolean;
 }
 export interface GetWalletFromEmailProps {
   setLoading: Dispatch<SetStateAction<boolean>>;
   setError: Dispatch<SetStateAction<unknown>>;
   userEmail: string;
+  magic: any;
   persist: boolean;
 }
 
@@ -172,10 +222,14 @@ export interface ChangeMainAccountProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   newMainAcctAddress: string;
 }
 
@@ -184,10 +238,14 @@ export interface ActivateOpenRewardProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   rewardAddress: string;
 }
 export interface IntegrateRewardProps {
@@ -195,10 +253,14 @@ export interface IntegrateRewardProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   rewardAddress: string;
   descriptionLink: string;
   readTandC: boolean;
@@ -208,10 +270,15 @@ export interface TopUpOpenRewardLiquidityProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
+  ME_TOKEN: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   address: string;
   meAmount: string;
   rewardAmount: string;
@@ -222,10 +289,14 @@ export interface SpendRewardOnIssuingBrandProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   spendAddress: string;
   spendAmount: string;
 }
@@ -245,10 +316,14 @@ export interface UpdateRewardConfigProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   address: string;
   brandId: string;
   ignoreDefault: boolean;
@@ -266,10 +341,14 @@ export interface UpdateRewardDetailsProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   rewardAddress: string;
   brandId: string;
   details: EditableRewardDetails;
@@ -286,10 +365,14 @@ export interface UpdateBrandDetailsProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   brandId: string;
   brandDetails: EditableBrandDetails;
   ignoreDefault: boolean;
@@ -307,10 +390,14 @@ export interface UpdateGeneralConfigProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   brandId: string;
   generalConfig: EditableBrandConfig;
   ignoreDefault: boolean;
@@ -330,10 +417,14 @@ export interface UpdateOpenRewardConfigProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   rewardAddress: string;
   config: EditableConfigForTypeAOpenRewards;
   ignoreDefault: boolean;
@@ -344,10 +435,14 @@ export interface ResumeOpenRewardProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   rewardAddress: string;
 }
 
@@ -356,10 +451,14 @@ export interface PauseOpenRewardProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   rewardAddress: string;
 }
 
@@ -380,10 +479,14 @@ export interface GetBrandDetailsProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   getOnlyId?: boolean;
 }
 
@@ -392,6 +495,9 @@ export interface GetExpectedAmountOfTargetedRewardProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
@@ -421,11 +527,15 @@ export interface SwapWithDiffBrandProps {
   setError: Dispatch<SetStateAction<unknown>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   spendInfo: SpendingInfo;
   email: string;
+  magic: any;
 }
 
 export interface SpendRewardsOnAnotherBrandWithVaultPermitProps {
@@ -435,11 +545,15 @@ export interface SpendRewardsOnAnotherBrandWithVaultPermitProps {
   setSpendingSteps: Dispatch<SetStateAction<number>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   spendInfo: SpendingInfo;
   email: string;
+  magic: any;
   rewardId: string;
   RUNTIME_URL: string;
   orderId: string;
@@ -452,10 +566,14 @@ export interface AddRewardMagicProps {
   setSpendingSteps: Dispatch<SetStateAction<number>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   brand_id: BigNumber;
   // reward_address: string;
   reward_manager: string;
@@ -471,10 +589,14 @@ export interface RemoveRewardMagicProps {
   setSpendingSteps: Dispatch<SetStateAction<number>>;
   meApiKey: string;
   reqURL: string;
+  OPEN_REWARD_DIAMOND: string;
+  JSON_RPC_URL: string;
+  CHAIN_ID: number;
   GELATO_API_KEY: string;
   debug?: boolean;
   costPayerId?: string;
   email: string;
+  magic: any;
   brand_id: BigNumber;
   // reward_address: string;
   reward_manager: string;
@@ -676,7 +798,20 @@ export interface JsonRpcResponse {
   id: number;
 }
 
-export type OmittedProps = "setLoading" | "setSpendLoading" | "setSpendingSteps" | "email" | "setError" | "meApiKey" | "reqURL" | "costPayerId";
+export type OmittedProps =
+  | "setLoading"
+  | "setSpendLoading"
+  | "setSpendingSteps"
+  | "email"
+  | "setError"
+  | "meApiKey"
+  | "reqURL"
+  | "costPayerId"
+  | "JSON_RPC_URL"
+  | "OPEN_REWARD_DIAMOND"
+  | "ME_TOKEN"
+  | "CHAIN_ID"
+  | "magic";
 export type TaskIdPromise = Promise<{ taskId: string } | undefined>;
 
 export interface AllFnsProps {

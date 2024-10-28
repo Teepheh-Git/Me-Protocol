@@ -1,12 +1,12 @@
 import { ethers } from "ethers";
-import { brandService, OPEN_REWARD_DIAMOND } from "@developeruche/protocol-core";
-import { magic } from "../lib/magic";
+import { brandService } from "@developeruche/protocol-core";
 import { createWeb3 } from "../lib/web3";
+import { delay } from "../helpers/delay";
 import { UpdateBrandDetailsProps } from "../lib/types";
 import { relay } from "@developeruche/protocol-core";
-
 export async function updateBrandDetailsFN({
   email,
+  magic,
   brandId,
   brandDetails: { name, onlinePresence },
   ignoreDefault,
@@ -15,6 +15,9 @@ export async function updateBrandDetailsFN({
   meApiKey,
   reqURL,
   GELATO_API_KEY,
+  OPEN_REWARD_DIAMOND,
+  JSON_RPC_URL,
+  CHAIN_ID,
   costPayerId,
   debug,
 }: UpdateBrandDetailsProps) {
@@ -27,7 +30,7 @@ export async function updateBrandDetailsFN({
       await magic.auth.loginWithEmailOTP({ email });
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
       const accounts = await magicWeb3.eth.getAccounts();
@@ -47,7 +50,7 @@ export async function updateBrandDetailsFN({
         onlinePresence,
       };
 
-      const data = await brandService.updateDetails(brandId, details, ignoreDefault);
+      const data = await brandService.updateDetails(brandId, details, ignoreDefault, JSON_RPC_URL, OPEN_REWARD_DIAMOND);
 
       const relayInput = {
         from: loggedInUserInfo.publicAddress,
@@ -55,13 +58,24 @@ export async function updateBrandDetailsFN({
         to: OPEN_REWARD_DIAMOND,
       };
 
-      const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+      const { taskId }: { taskId: string } = await relay(
+        relayInput,
+        signer,
+        meApiKey,
+        reqURL,
+        GELATO_API_KEY,
+        JSON_RPC_URL,
+        CHAIN_ID,
+        OPEN_REWARD_DIAMOND,
+        costPayerId,
+        debug
+      );
 
       return { taskId };
     } else {
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
 
@@ -72,7 +86,7 @@ export async function updateBrandDetailsFN({
         await magic.auth.loginWithEmailOTP({ email });
         let isConnected = magicWeb3;
         while (!isConnected) {
-          await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+          await delay(1000); // Wait for 1 second
           isConnected = magicWeb3;
         }
         const accounts = await magicWeb3.eth.getAccounts();
@@ -92,7 +106,7 @@ export async function updateBrandDetailsFN({
           onlinePresence,
         };
 
-        const data = await brandService.updateDetails(brandId, details, ignoreDefault);
+        const data = await brandService.updateDetails(brandId, details, ignoreDefault, JSON_RPC_URL, OPEN_REWARD_DIAMOND);
 
         const relayInput = {
           from: loggedInUserInfo.publicAddress,
@@ -100,7 +114,18 @@ export async function updateBrandDetailsFN({
           to: OPEN_REWARD_DIAMOND,
         };
 
-        const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+        const { taskId }: { taskId: string } = await relay(
+          relayInput,
+          signer,
+          meApiKey,
+          reqURL,
+          GELATO_API_KEY,
+          JSON_RPC_URL,
+          CHAIN_ID,
+          OPEN_REWARD_DIAMOND,
+          costPayerId,
+          debug
+        );
 
         return { taskId };
       }
@@ -121,7 +146,7 @@ export async function updateBrandDetailsFN({
         onlinePresence,
       };
 
-      const data = await brandService.updateDetails(brandId, details, ignoreDefault);
+      const data = await brandService.updateDetails(brandId, details, ignoreDefault, JSON_RPC_URL, OPEN_REWARD_DIAMOND);
 
       const relayInput = {
         from: loggedInUserInfo.publicAddress,
@@ -129,7 +154,18 @@ export async function updateBrandDetailsFN({
         to: OPEN_REWARD_DIAMOND,
       };
 
-      const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+      const { taskId }: { taskId: string } = await relay(
+        relayInput,
+        signer,
+        meApiKey,
+        reqURL,
+        GELATO_API_KEY,
+        JSON_RPC_URL,
+        CHAIN_ID,
+        OPEN_REWARD_DIAMOND,
+        costPayerId,
+        debug
+      );
 
       return { taskId };
     }

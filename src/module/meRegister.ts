@@ -1,7 +1,7 @@
 // import { ethers } from "ethers";
 // import { brandService, OPEN_REWARD_DIAMOND } from "@developeruche/protocol-core";
-// import { magic } from "../lib/magic";
-// import { createWeb3 } from "../lib/web3";
+// ;
+// import { createWeb3 } from "../lib/web3";  import { delay } from "../helpers/delay";
 // import { relay } from "@developeruche/protocol-core";
 // import { MeRegisterProps } from "../lib/types";
 
@@ -24,7 +24,7 @@
 //       await magic.auth.loginWithEmailOTP({ email });
 //       let isConnected = magicWeb3;
 //       while (!isConnected) {
-//         await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+//         await delay(1000); // Wait for 1 second
 //         isConnected = magicWeb3;
 //       }
 //       const accounts = await magicWeb3.eth.getAccounts();
@@ -56,7 +56,7 @@
 //     } else {
 //       let isConnected = magicWeb3;
 //       while (!isConnected) {
-//         await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+//         await delay(1000); // Wait for 1 second
 //         isConnected = magicWeb3;
 //       }
 //       const accounts = await magicWeb3.eth.getAccounts();

@@ -1,14 +1,14 @@
 import { BigNumber, ethers } from "ethers";
-import { OPEN_REWARD_DIAMOND, VaultPermitParams, usersServiceWithPermit } from "@developeruche/protocol-core";
-import { magic } from "../lib/magic";
+import { VaultPermitParams, usersServiceWithPermit } from "@developeruche/protocol-core";
 import { createWeb3 } from "../lib/web3";
+import { delay } from "../helpers/delay";
 import { relay } from "@developeruche/protocol-core";
 import { sendTransactionData, spend_reward_magic } from "@developeruche/runtime-sdk";
 import axios from "axios";
 import { SpendRewardsOnAnotherBrandWithVaultPermitProps } from "../lib/types";
-
 export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
   email,
+  magic,
   setLoading,
   setSpendLoading,
   setSpendingSteps,
@@ -21,6 +21,9 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
   RUNTIME_URL,
   GELATO_API_KEY,
   debug,
+  OPEN_REWARD_DIAMOND,
+  JSON_RPC_URL,
+  CHAIN_ID,
   orderId,
 }: SpendRewardsOnAnotherBrandWithVaultPermitProps) {
   setLoading(true);
@@ -31,7 +34,7 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
       await magic.auth.loginWithEmailOTP({ email });
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
       const accounts = await magicWeb3.eth.getAccounts();
@@ -119,7 +122,12 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
       setSpendingSteps(2);
 
       try {
-        const datum: any = await usersServiceWithPermit.spendRewardsOnAnotherBrandWithVaultPermit(spendInfo, vaultParams);
+        const datum: any = await usersServiceWithPermit.spendRewardsOnAnotherBrandWithVaultPermit(
+          spendInfo,
+          vaultParams,
+          OPEN_REWARD_DIAMOND,
+          JSON_RPC_URL
+        );
 
         const relayInput = {
           from: loggedInUserInfo.publicAddress,
@@ -129,7 +137,18 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
 
         setSpendingSteps(3);
 
-        const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+        const { taskId }: { taskId: string } = await relay(
+          relayInput,
+          signer,
+          meApiKey,
+          reqURL,
+          GELATO_API_KEY,
+          JSON_RPC_URL,
+          CHAIN_ID,
+          OPEN_REWARD_DIAMOND,
+          costPayerId,
+          debug
+        );
         return { taskId, spendData };
       } catch (error) {
         return { taskId: "0x0000000000000000000000000000000000000000000000000000000000000000", spendData };
@@ -152,7 +171,7 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
     } else {
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
 
@@ -163,7 +182,7 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
         await magic.auth.loginWithEmailOTP({ email });
         let isConnected = magicWeb3;
         while (!isConnected) {
-          await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+          await delay(1000); // Wait for 1 second
           isConnected = magicWeb3;
         }
         const accounts = await magicWeb3.eth.getAccounts();
@@ -252,7 +271,12 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
         setSpendingSteps(2);
 
         try {
-          const datum: any = await usersServiceWithPermit.spendRewardsOnAnotherBrandWithVaultPermit(spendInfo, vaultParams);
+          const datum: any = await usersServiceWithPermit.spendRewardsOnAnotherBrandWithVaultPermit(
+            spendInfo,
+            vaultParams,
+            OPEN_REWARD_DIAMOND,
+            JSON_RPC_URL
+          );
 
           const relayInput = {
             from: loggedInUserInfo.publicAddress,
@@ -262,7 +286,18 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
 
           setSpendingSteps(3);
 
-          const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+          const { taskId }: { taskId: string } = await relay(
+            relayInput,
+            signer,
+            meApiKey,
+            reqURL,
+            GELATO_API_KEY,
+            JSON_RPC_URL,
+            CHAIN_ID,
+            OPEN_REWARD_DIAMOND,
+            costPayerId,
+            debug
+          );
           return { taskId, spendData };
         } catch (error) {
           return { taskId: "0x0000000000000000000000000000000000000000000000000000000000000000", spendData };
@@ -369,7 +404,12 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
       setSpendingSteps(2);
 
       try {
-        const datum: any = await usersServiceWithPermit.spendRewardsOnAnotherBrandWithVaultPermit(spendInfo, vaultParams);
+        const datum: any = await usersServiceWithPermit.spendRewardsOnAnotherBrandWithVaultPermit(
+          spendInfo,
+          vaultParams,
+          OPEN_REWARD_DIAMOND,
+          JSON_RPC_URL
+        );
 
         const relayInput = {
           from: loggedInUserInfo.publicAddress,
@@ -379,7 +419,18 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
 
         setSpendingSteps(3);
 
-        const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+        const { taskId }: { taskId: string } = await relay(
+          relayInput,
+          signer,
+          meApiKey,
+          reqURL,
+          GELATO_API_KEY,
+          JSON_RPC_URL,
+          CHAIN_ID,
+          OPEN_REWARD_DIAMOND,
+          costPayerId,
+          debug
+        );
         return { taskId, spendData };
       } catch (error) {
         return { taskId: "0x0000000000000000000000000000000000000000000000000000000000000000", spendData };

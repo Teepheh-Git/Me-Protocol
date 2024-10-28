@@ -1,12 +1,12 @@
 import { ethers } from "ethers";
-import { brandService, OPEN_REWARD_DIAMOND } from "@developeruche/protocol-core";
-import { magic } from "../lib/magic";
+import { brandService } from "@developeruche/protocol-core";
 import { createWeb3 } from "../lib/web3";
+import { delay } from "../helpers/delay";
 import { relay } from "@developeruche/protocol-core";
 import { PauseOpenRewardProps } from "../lib/types";
-
 export async function pauseOpenRewardFN({
   email,
+  magic,
   rewardAddress,
   setLoading,
   setError,
@@ -15,6 +15,9 @@ export async function pauseOpenRewardFN({
   costPayerId,
   GELATO_API_KEY,
   debug,
+  OPEN_REWARD_DIAMOND,
+  JSON_RPC_URL,
+  CHAIN_ID,
 }: PauseOpenRewardProps) {
   setLoading(true);
 
@@ -25,7 +28,7 @@ export async function pauseOpenRewardFN({
       await magic.auth.loginWithEmailOTP({ email });
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
       const accounts = await magicWeb3.eth.getAccounts();
@@ -40,20 +43,31 @@ export async function pauseOpenRewardFN({
       const signer = web3Provider.getSigner(userAccount);
       const loggedInUserInfo = await magic.user.getInfo().then((info: any) => info);
 
-      const data = await brandService.pauseOpenRewards(rewardAddress);
+      const data = await brandService.pauseOpenRewards(rewardAddress, JSON_RPC_URL, OPEN_REWARD_DIAMOND);
       const relayInput = {
         from: loggedInUserInfo.publicAddress,
         data: data.data,
         to: OPEN_REWARD_DIAMOND,
       };
 
-      const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+      const { taskId }: { taskId: string } = await relay(
+        relayInput,
+        signer,
+        meApiKey,
+        reqURL,
+        GELATO_API_KEY,
+        JSON_RPC_URL,
+        CHAIN_ID,
+        OPEN_REWARD_DIAMOND,
+        costPayerId,
+        debug
+      );
 
       return { taskId };
     } else {
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
       const { email: connectedEmail } = await magic.user.getInfo();
@@ -73,13 +87,24 @@ export async function pauseOpenRewardFN({
       const signer = web3Provider.getSigner(userAccount);
       const loggedInUserInfo = await magic.user.getInfo().then((info: any) => info);
 
-      const data = await brandService.pauseOpenRewards(rewardAddress);
+      const data = await brandService.pauseOpenRewards(rewardAddress, JSON_RPC_URL, OPEN_REWARD_DIAMOND);
       const relayInput = {
         from: loggedInUserInfo.publicAddress,
         data: data.data,
         to: OPEN_REWARD_DIAMOND,
       };
-      const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+      const { taskId }: { taskId: string } = await relay(
+        relayInput,
+        signer,
+        meApiKey,
+        reqURL,
+        GELATO_API_KEY,
+        JSON_RPC_URL,
+        CHAIN_ID,
+        OPEN_REWARD_DIAMOND,
+        costPayerId,
+        debug
+      );
 
       return { taskId };
     }

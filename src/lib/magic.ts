@@ -1,20 +1,14 @@
-import { CHAIN_ID, JSON_RPC_URL } from "@developeruche/protocol-core";
 import { Magic } from "magic-sdk";
+import { MagicProps } from "../lib/types";
 
-const apiKey = "pk_live_FB79F672A43B8AC2"; //mumbai
-
-const createMagic = (key: any) => {
-  const customNodeOptions = {
-    rpcUrl: JSON_RPC_URL,
-    chainId: CHAIN_ID,
-  };
-
+export const createMagic = ({ key, CHAIN_ID, JSON_RPC_URL }: MagicProps) => {
   return (
     typeof window !== "undefined" &&
     new Magic(key, {
-      network: customNodeOptions,
+      network: {
+        rpcUrl: JSON_RPC_URL,
+        chainId: CHAIN_ID,
+      },
     })
   );
 };
-
-export const magic: any = createMagic(apiKey);

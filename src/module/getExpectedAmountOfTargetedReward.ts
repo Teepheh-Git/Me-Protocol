@@ -9,6 +9,8 @@ export async function getExpectedAmountOfTargetedRewardFN({
   setLoading,
   returnAsFormatted,
   setError,
+  JSON_RPC_URL,
+  OPEN_REWARD_DIAMOND,
 }: GetExpectedAmountOfTargetedRewardProps) {
   setLoading(true);
 
@@ -16,7 +18,9 @@ export async function getExpectedAmountOfTargetedRewardFN({
     const neededAmount = await secretoryService.getAmountIn(
       inputRewardAddress.trim(),
       outPutRewardAddress.trim(),
-      ethers.utils.parseEther(amount.toString())
+      ethers.utils.parseEther(amount.toString()),
+      JSON_RPC_URL,
+      OPEN_REWARD_DIAMOND
     );
 
     if (returnAsFormatted) {

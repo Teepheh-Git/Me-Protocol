@@ -1,11 +1,11 @@
 import { ethers } from "ethers";
-import { brandService, OPEN_REWARD_DIAMOND, relay } from "@developeruche/protocol-core";
-import { magic } from "../lib/magic";
+import { brandService, relay } from "@developeruche/protocol-core";
 import { createWeb3 } from "../lib/web3";
+import { delay } from "../helpers/delay";
 import { CreateRewardProps } from "../lib/types";
-
 export async function createRewardFN({
   email,
+  magic,
   name,
   symbol,
   descriptionLink,
@@ -17,6 +17,9 @@ export async function createRewardFN({
   setError,
   GELATO_API_KEY,
   debug,
+  OPEN_REWARD_DIAMOND,
+  JSON_RPC_URL,
+  CHAIN_ID,
 }: CreateRewardProps) {
   setLoading(true);
 
@@ -27,7 +30,7 @@ export async function createRewardFN({
       await magic.auth.loginWithemailOTP({ email });
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
       const accounts = await magicWeb3.eth.getAccounts();
@@ -47,7 +50,9 @@ export async function createRewardFN({
         symbol,
         descriptionLink,
         ethers.utils.parseEther(totalSupply),
-        loggedInUserInfo.publicAddress
+        loggedInUserInfo.publicAddress,
+        JSON_RPC_URL,
+        OPEN_REWARD_DIAMOND
       );
       const relayInput = {
         from: loggedInUserInfo.publicAddress,
@@ -55,13 +60,24 @@ export async function createRewardFN({
         to: OPEN_REWARD_DIAMOND,
       };
 
-      const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+      const { taskId }: { taskId: string } = await relay(
+        relayInput,
+        signer,
+        meApiKey,
+        reqURL,
+        GELATO_API_KEY,
+        JSON_RPC_URL,
+        CHAIN_ID,
+        OPEN_REWARD_DIAMOND,
+        costPayerId,
+        debug
+      );
 
       return { taskId };
     } else {
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
 
@@ -72,7 +88,7 @@ export async function createRewardFN({
         await magic.auth.loginWithemailOTP({ email });
         let isConnected = magicWeb3;
         while (!isConnected) {
-          await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+          await delay(1000); // Wait for 1 second
           isConnected = magicWeb3;
         }
         const accounts = await magicWeb3.eth.getAccounts();
@@ -92,7 +108,9 @@ export async function createRewardFN({
           symbol,
           descriptionLink,
           ethers.utils.parseEther(totalSupply),
-          loggedInUserInfo.publicAddress
+          loggedInUserInfo.publicAddress,
+          JSON_RPC_URL,
+          OPEN_REWARD_DIAMOND
         );
         const relayInput = {
           from: loggedInUserInfo.publicAddress,
@@ -100,7 +118,18 @@ export async function createRewardFN({
           to: OPEN_REWARD_DIAMOND,
         };
 
-        const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+        const { taskId }: { taskId: string } = await relay(
+          relayInput,
+          signer,
+          meApiKey,
+          reqURL,
+          GELATO_API_KEY,
+          JSON_RPC_URL,
+          CHAIN_ID,
+          OPEN_REWARD_DIAMOND,
+          costPayerId,
+          debug
+        );
 
         return { taskId };
       }
@@ -121,14 +150,27 @@ export async function createRewardFN({
         symbol,
         descriptionLink,
         ethers.utils.parseEther(totalSupply),
-        loggedInUserInfo.publicAddress
+        loggedInUserInfo.publicAddress,
+        JSON_RPC_URL,
+        OPEN_REWARD_DIAMOND
       );
       const relayInput = {
         from: loggedInUserInfo.publicAddress,
         data: data.data,
         to: OPEN_REWARD_DIAMOND,
       };
-      const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+      const { taskId }: { taskId: string } = await relay(
+        relayInput,
+        signer,
+        meApiKey,
+        reqURL,
+        GELATO_API_KEY,
+        JSON_RPC_URL,
+        CHAIN_ID,
+        OPEN_REWARD_DIAMOND,
+        costPayerId,
+        debug
+      );
 
       return { taskId };
     }

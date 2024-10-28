@@ -1,18 +1,21 @@
 import { ethers } from "ethers";
-import { OPEN_REWARD_DIAMOND, usersServiceWithPermit } from "@developeruche/protocol-core";
-import { magic } from "../lib/magic";
+import { usersServiceWithPermit } from "@developeruche/protocol-core";
 import { createWeb3 } from "../lib/web3";
+import { delay } from "../helpers/delay";
 import { relay } from "@developeruche/protocol-core";
 import { SwapWithDiffBrandProps } from "../lib/types";
-
 export async function swapWithDiffBrandFN({
   email,
+  magic,
   setLoading,
   spendInfo: { rewardAtHand, targettedReward, amountOfRewardAtHand, expectedAmountOfTargetedReward },
   setError,
   meApiKey,
   reqURL,
   GELATO_API_KEY,
+  OPEN_REWARD_DIAMOND,
+  JSON_RPC_URL,
+  CHAIN_ID,
   costPayerId,
   debug,
 }: SwapWithDiffBrandProps) {
@@ -24,7 +27,7 @@ export async function swapWithDiffBrandFN({
       await magic.auth.loginWithEmailOTP({ email });
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
       const accounts = await magicWeb3.eth.getAccounts();
@@ -46,20 +49,31 @@ export async function swapWithDiffBrandFN({
         expectedAmountOfTargetedReward,
       };
 
-      const data = await usersServiceWithPermit.spendRewardsOnAnotherBrandWithPermit(spendInfo, signer);
+      const data = await usersServiceWithPermit.spendRewardsOnAnotherBrandWithPermit(spendInfo, signer, CHAIN_ID, OPEN_REWARD_DIAMOND, JSON_RPC_URL);
       const relayInput = {
         from: loggedInUserInfo.publicAddress,
         data: data.data,
         to: OPEN_REWARD_DIAMOND,
       };
 
-      const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+      const { taskId }: { taskId: string } = await relay(
+        relayInput,
+        signer,
+        meApiKey,
+        reqURL,
+        GELATO_API_KEY,
+        JSON_RPC_URL,
+        CHAIN_ID,
+        OPEN_REWARD_DIAMOND,
+        costPayerId,
+        debug
+      );
 
       return { taskId };
     } else {
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
 
@@ -70,7 +84,7 @@ export async function swapWithDiffBrandFN({
         await magic.auth.loginWithEmailOTP({ email });
         let isConnected = magicWeb3;
         while (!isConnected) {
-          await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+          await delay(1000); // Wait for 1 second
           isConnected = magicWeb3;
         }
         const accounts = await magicWeb3.eth.getAccounts();
@@ -92,14 +106,31 @@ export async function swapWithDiffBrandFN({
           expectedAmountOfTargetedReward,
         };
 
-        const data = await usersServiceWithPermit.spendRewardsOnAnotherBrandWithPermit(spendInfo, signer);
+        const data = await usersServiceWithPermit.spendRewardsOnAnotherBrandWithPermit(
+          spendInfo,
+          signer,
+          CHAIN_ID,
+          OPEN_REWARD_DIAMOND,
+          JSON_RPC_URL
+        );
         const relayInput = {
           from: loggedInUserInfo.publicAddress,
           data: data.data,
           to: OPEN_REWARD_DIAMOND,
         };
 
-        const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+        const { taskId }: { taskId: string } = await relay(
+          relayInput,
+          signer,
+          meApiKey,
+          reqURL,
+          GELATO_API_KEY,
+          JSON_RPC_URL,
+          CHAIN_ID,
+          OPEN_REWARD_DIAMOND,
+          costPayerId,
+          debug
+        );
 
         return { taskId };
       }
@@ -122,14 +153,25 @@ export async function swapWithDiffBrandFN({
         expectedAmountOfTargetedReward,
       };
 
-      const data = await usersServiceWithPermit.spendRewardsOnAnotherBrandWithPermit(spendInfo, signer);
+      const data = await usersServiceWithPermit.spendRewardsOnAnotherBrandWithPermit(spendInfo, signer, CHAIN_ID, OPEN_REWARD_DIAMOND, JSON_RPC_URL);
       const relayInput = {
         from: loggedInUserInfo.publicAddress,
         data: data.data,
         to: OPEN_REWARD_DIAMOND,
       };
 
-      const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+      const { taskId }: { taskId: string } = await relay(
+        relayInput,
+        signer,
+        meApiKey,
+        reqURL,
+        GELATO_API_KEY,
+        JSON_RPC_URL,
+        CHAIN_ID,
+        OPEN_REWARD_DIAMOND,
+        costPayerId,
+        debug
+      );
 
       return { taskId };
     }

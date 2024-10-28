@@ -1,12 +1,10 @@
 import { ethers } from "ethers";
-import { magic } from "../lib/magic";
 import { createWeb3 } from "../lib/web3";
+import { delay } from "../helpers/delay";
 import { OnBoardRewardsProps } from "../lib/types";
-import axios from "axios";
+import { onboard_reward_magic } from "@developeruche/runtime-sdk";
 
-import { onboard_reward_magic, sendTransactionData } from "@developeruche/runtime-sdk";
-
-export async function onBoardRewardsFN({ email, brand_id, reward_address, setLoading, setError, persist, RUNTIME_URL }: OnBoardRewardsProps) {
+export async function onBoardRewardsFN({ email, magic, brand_id, reward_address, setLoading, setError, persist, RUNTIME_URL }: OnBoardRewardsProps) {
   setLoading(true);
 
   try {
@@ -16,7 +14,7 @@ export async function onBoardRewardsFN({ email, brand_id, reward_address, setLoa
       await magic.auth.loginWithEmailOTP({ email });
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
       const accounts = await magicWeb3.eth.getAccounts();
@@ -37,7 +35,7 @@ export async function onBoardRewardsFN({ email, brand_id, reward_address, setLoa
     } else {
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
 
@@ -48,7 +46,7 @@ export async function onBoardRewardsFN({ email, brand_id, reward_address, setLoa
         await magic.auth.loginWithEmailOTP({ email });
         let isConnected = magicWeb3;
         while (!isConnected) {
-          await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+          await delay(1000); // Wait for 1 second
           isConnected = magicWeb3;
         }
         const accounts = await magicWeb3.eth.getAccounts();

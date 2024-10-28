@@ -1,12 +1,11 @@
 import { ethers } from "ethers";
-import { magic } from "../lib/magic";
 import { createWeb3 } from "../lib/web3";
-import { OPEN_REWARD_DIAMOND, brandService, relay } from "@developeruche/protocol-core";
-import { Dispatch, SetStateAction } from "react";
+import { delay } from "../helpers/delay";
+import { brandService, relay } from "@developeruche/protocol-core";
 import { DeployRewardAndPoolProps } from "../lib/types";
-
 export async function deployRewardAndPoolFN({
   email,
+  magic,
   brandId,
   name,
   symbol,
@@ -27,6 +26,12 @@ export async function deployRewardAndPoolFN({
   persist,
   GELATO_API_KEY,
   debug,
+  OPEN_REWARD_DIAMOND,
+  JSON_RPC_URL,
+  TREASURY,
+  VAULT,
+  OPEN_REWARD_IMPLEMENTATION,
+  CHAIN_ID,
 }: DeployRewardAndPoolProps) {
   setLoading(true);
 
@@ -37,7 +42,7 @@ export async function deployRewardAndPoolFN({
       await magic.auth.loginWithEmailOTP({ email });
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
       const accounts = await magicWeb3.eth.getAccounts();
@@ -66,7 +71,12 @@ export async function deployRewardAndPoolFN({
         minimumRewardAmountForConversation,
         minimumMeAmountForConversation,
         notifyRewardAmount,
-        notifyMeAmount
+        notifyMeAmount,
+        TREASURY,
+        VAULT,
+        OPEN_REWARD_IMPLEMENTATION,
+        JSON_RPC_URL,
+        OPEN_REWARD_DIAMOND
       );
 
       const relayInput = {
@@ -75,13 +85,24 @@ export async function deployRewardAndPoolFN({
         to: OPEN_REWARD_DIAMOND,
       };
 
-      const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+      const { taskId }: { taskId: string } = await relay(
+        relayInput,
+        signer,
+        meApiKey,
+        reqURL,
+        GELATO_API_KEY,
+        JSON_RPC_URL,
+        CHAIN_ID,
+        OPEN_REWARD_DIAMOND,
+        costPayerId,
+        debug
+      );
 
       return { taskId };
     } else {
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
 
@@ -92,7 +113,7 @@ export async function deployRewardAndPoolFN({
         await magic.auth.loginWithEmailOTP({ email });
         let isConnected = magicWeb3;
         while (!isConnected) {
-          await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+          await delay(1000); // Wait for 1 second
           isConnected = magicWeb3;
         }
         const accounts = await magicWeb3.eth.getAccounts();
@@ -121,7 +142,12 @@ export async function deployRewardAndPoolFN({
           minimumRewardAmountForConversation,
           minimumMeAmountForConversation,
           notifyRewardAmount,
-          notifyMeAmount
+          notifyMeAmount,
+          TREASURY,
+          VAULT,
+          OPEN_REWARD_IMPLEMENTATION,
+          JSON_RPC_URL,
+          OPEN_REWARD_DIAMOND
         );
 
         const relayInput = {
@@ -130,7 +156,18 @@ export async function deployRewardAndPoolFN({
           to: OPEN_REWARD_DIAMOND,
         };
 
-        const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+        const { taskId }: { taskId: string } = await relay(
+          relayInput,
+          signer,
+          meApiKey,
+          reqURL,
+          GELATO_API_KEY,
+          JSON_RPC_URL,
+          CHAIN_ID,
+          OPEN_REWARD_DIAMOND,
+          costPayerId,
+          debug
+        );
 
         return { taskId };
       }
@@ -161,7 +198,12 @@ export async function deployRewardAndPoolFN({
         minimumRewardAmountForConversation,
         minimumMeAmountForConversation,
         notifyRewardAmount,
-        notifyMeAmount
+        notifyMeAmount,
+        TREASURY,
+        VAULT,
+        OPEN_REWARD_IMPLEMENTATION,
+        JSON_RPC_URL,
+        OPEN_REWARD_DIAMOND
       );
 
       const relayInput = {
@@ -170,7 +212,18 @@ export async function deployRewardAndPoolFN({
         to: OPEN_REWARD_DIAMOND,
       };
 
-      const { taskId }: { taskId: string } = await relay(relayInput, signer, meApiKey, reqURL, GELATO_API_KEY, costPayerId, debug);
+      const { taskId }: { taskId: string } = await relay(
+        relayInput,
+        signer,
+        meApiKey,
+        reqURL,
+        GELATO_API_KEY,
+        JSON_RPC_URL,
+        CHAIN_ID,
+        OPEN_REWARD_DIAMOND,
+        costPayerId,
+        debug
+      );
 
       return { taskId };
     }

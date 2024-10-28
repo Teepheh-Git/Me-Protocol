@@ -19,5 +19,12 @@
     "titleBar.inactiveForeground": "#15202b99"
   },
   "peacock.color": "#61dafb",
-  "cSpell.words": ["gelato"]
+  "cSpell.words": ["gelato"],
+  "editor.inlineSuggest.showToolbar": "always",
+  "editor.wordWrapColumn": 180,
+  "editor.wordWrap": "on",
+  "prettier.printWidth": 150,
+  "editor.codeActionsOnSave": {
+    "source.removeUnusedImports": "explicit"
+  }
 }

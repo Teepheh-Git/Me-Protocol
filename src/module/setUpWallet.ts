@@ -1,8 +1,8 @@
-import { magic } from "../lib/magic";
 import { SetUpWalletProps } from "../lib/types";
 import { createWeb3 } from "../lib/web3";
+import { delay } from "../helpers/delay";
 
-export async function setUpWalletFN({ email, setLoading, setError, persist }: SetUpWalletProps) {
+export async function setUpWalletFN({ email, magic, setLoading, setError, persist }: SetUpWalletProps) {
   setLoading(true);
 
   try {
@@ -12,7 +12,7 @@ export async function setUpWalletFN({ email, setLoading, setError, persist }: Se
       await magic.auth.loginWithEmailOTP({ email });
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
       const accounts = await magicWeb3.eth.getAccounts();
@@ -26,7 +26,7 @@ export async function setUpWalletFN({ email, setLoading, setError, persist }: Se
     } else {
       let isConnected = magicWeb3;
       while (!isConnected) {
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+        await delay(1000); // Wait for 1 second
         isConnected = magicWeb3;
       }
 
@@ -37,7 +37,7 @@ export async function setUpWalletFN({ email, setLoading, setError, persist }: Se
         await magic.auth.loginWithEmailOTP({ email });
         let isConnected = magicWeb3;
         while (!isConnected) {
-          await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
+          await delay(1000); // Wait for 1 second
           isConnected = magicWeb3;
         }
         const accounts = await magicWeb3.eth.getAccounts();
