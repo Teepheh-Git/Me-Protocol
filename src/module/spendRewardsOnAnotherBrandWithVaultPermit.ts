@@ -13,20 +13,26 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
   setSpendLoading,
   setSpendingSteps,
   spendInfo: { rewardAtHand, targettedReward, amountOfRewardAtHand, expectedAmountOfTargetedReward },
+  exchange_reward_address,
+  exchange_reward_amount,
   rewardId,
   setError,
   meApiKey,
   reqURL,
-  costPayerId,
   RUNTIME_URL,
-
-  debug,
   OPEN_REWARD_DIAMOND,
   JSON_RPC_URL,
-  CHAIN_ID,
   orderId,
 }: SpendRewardsOnAnotherBrandWithVaultPermitProps) {
   setLoading(true);
+
+  const spendInfo = {
+    rewardAtHand,
+    targettedReward,
+    amountOfRewardAtHand,
+    expectedAmountOfTargetedReward,
+  };
+
   try {
     const magicWeb3 = await createWeb3(magic);
 
@@ -52,12 +58,7 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
       //=============================================== DO THE REST HERE==========================================================
 
       setSpendLoading(true);
-      const spendInfo = {
-        rewardAtHand,
-        targettedReward,
-        amountOfRewardAtHand,
-        expectedAmountOfTargetedReward,
-      };
+
       const {
         data: spend_reward_magic_data,
         from,
@@ -70,6 +71,8 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
         spendInfo.rewardAtHand,
         BigInt(spendInfo.amountOfRewardAtHand.toString()),
         OPEN_REWARD_DIAMOND,
+        exchange_reward_address,
+        BigInt(exchange_reward_amount.toString()),
         signer,
         RUNTIME_URL
       );
@@ -209,12 +212,6 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
 
         //=============================================== DO THE REST HERE==========================================================
         setSpendLoading(true);
-        const spendInfo = {
-          rewardAtHand,
-          targettedReward,
-          amountOfRewardAtHand,
-          expectedAmountOfTargetedReward,
-        };
 
         const {
           data: spend_reward_magic_data,
@@ -228,6 +225,9 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
           spendInfo.rewardAtHand,
           BigInt(spendInfo.amountOfRewardAtHand.toString()),
           OPEN_REWARD_DIAMOND,
+          exchange_reward_address,
+          BigInt(exchange_reward_amount.toString()),
+
           signer,
           RUNTIME_URL
         );
@@ -353,12 +353,7 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
       const loggedInUserInfo = await magic.user.getInfo().then((info: any) => info);
 
       setSpendLoading(true);
-      const spendInfo = {
-        rewardAtHand,
-        targettedReward,
-        amountOfRewardAtHand,
-        expectedAmountOfTargetedReward,
-      };
+
       const {
         data: spend_reward_magic_data,
         from,
@@ -371,6 +366,8 @@ export async function spendRewardsOnAnotherBrandWithVaultPermitFN({
         spendInfo.rewardAtHand,
         BigInt(spendInfo.amountOfRewardAtHand.toString()),
         OPEN_REWARD_DIAMOND,
+        exchange_reward_address,
+        BigInt(exchange_reward_amount.toString()),
         signer,
         RUNTIME_URL
       );

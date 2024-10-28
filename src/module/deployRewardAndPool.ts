@@ -58,6 +58,27 @@ export async function deployRewardAndPoolFN({
       const loggedInUserInfo = await magic.user.getInfo().then((info: any) => info);
 
       // ============================================FROM HERE=====================================================================
+      console.log(
+        "FROM SDK",
+        brandId,
+        name,
+        symbol,
+        descriptionLink,
+        totalSupplyVault,
+        totalSupplyTreasury,
+        // OPEN_REWARD_DIAMOND,
+        rOptimal,
+        maximumRLimit,
+        minimumRewardAmountForConversation,
+        minimumMeAmountForConversation,
+        notifyRewardAmount,
+        notifyMeAmount,
+        TREASURY,
+        VAULT,
+        OPEN_REWARD_IMPLEMENTATION,
+        JSON_RPC_URL,
+        OPEN_REWARD_DIAMOND
+      );
       const data = await brandService.createANewRewardWithPermitAndDeployPool(
         brandId,
         name,
@@ -136,6 +157,27 @@ export async function deployRewardAndPoolFN({
         const loggedInUserInfo = await magic.user.getInfo().then((info: any) => info);
 
         // ============================================FROM HERE=====================================================================
+        console.log(
+          "FROM SDK",
+          brandId,
+          name,
+          symbol,
+          descriptionLink,
+          totalSupplyVault,
+          totalSupplyTreasury,
+          // OPEN_REWARD_DIAMOND,
+          rOptimal,
+          maximumRLimit,
+          minimumRewardAmountForConversation,
+          minimumMeAmountForConversation,
+          notifyRewardAmount,
+          notifyMeAmount,
+          TREASURY,
+          VAULT,
+          OPEN_REWARD_IMPLEMENTATION,
+          JSON_RPC_URL,
+          OPEN_REWARD_DIAMOND
+        );
         const data = await brandService.createANewRewardWithPermitAndDeployPool(
           brandId,
           name,
@@ -200,6 +242,27 @@ export async function deployRewardAndPoolFN({
 
       // ============================================FROM HERE=====================================================================
 
+      console.log(
+        "FROM SDK",
+        brandId,
+        name,
+        symbol,
+        descriptionLink,
+        totalSupplyVault,
+        totalSupplyTreasury,
+        // OPEN_REWARD_DIAMOND,
+        rOptimal,
+        maximumRLimit,
+        minimumRewardAmountForConversation,
+        minimumMeAmountForConversation,
+        notifyRewardAmount,
+        notifyMeAmount,
+        TREASURY,
+        VAULT,
+        OPEN_REWARD_IMPLEMENTATION,
+        JSON_RPC_URL,
+        OPEN_REWARD_DIAMOND
+      );
       const data = await brandService.createANewRewardWithPermitAndDeployPool(
         brandId,
         name,

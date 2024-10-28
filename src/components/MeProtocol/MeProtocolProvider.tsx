@@ -661,6 +661,8 @@ const MeProtocolProvider: React.FC<MeProtocolProviderProps> = ({
   async function spendRewardsOnAnotherBrandWithVaultPermit({
     rewardId,
     spendInfo: { rewardAtHand, targettedReward, amountOfRewardAtHand, expectedAmountOfTargetedReward },
+    exchange_reward_address,
+    exchange_reward_amount,
     orderId,
     RUNTIME_URL,
   }: Omit<SpendRewardsOnAnotherBrandWithVaultPermitProps, OmittedProps>) {
@@ -672,6 +674,8 @@ const MeProtocolProvider: React.FC<MeProtocolProviderProps> = ({
         amountOfRewardAtHand,
         expectedAmountOfTargetedReward,
       },
+      exchange_reward_address,
+      exchange_reward_amount,
       rewardId,
       setError,
       setSpendLoading,

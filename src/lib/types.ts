@@ -558,6 +558,8 @@ export interface SpendRewardsOnAnotherBrandWithVaultPermitProps {
   costPayerId?: string;
   spendInfo: SpendingInfo;
   email: string;
+  exchange_reward_address: string;
+  exchange_reward_amount: number;
   magic: Magic;
   rewardId: string;
   RUNTIME_URL: string;
@@ -848,6 +850,8 @@ export interface AllFnsProps {
   }: Omit<SwapWithDiffBrandProps, OmittedProps>) => GasApiPromise;
   spendRewardsOnAnotherBrandWithVaultPermit: ({
     spendInfo: { rewardAtHand, targettedReward, amountOfRewardAtHand, expectedAmountOfTargetedReward },
+    exchange_reward_address,
+    exchange_reward_amount,
     rewardId,
     RUNTIME_URL,
     orderId,

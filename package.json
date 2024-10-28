@@ -1,6 +1,6 @@
 {
   "name": "me-protocol",
-  "version": "0.2.0-magic",
+  "version": "0.2.5-magic",
   "description": "A library for interacting with the me-protocol ecosystem",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -16,7 +16,7 @@
     "@developeruche/protocol-core": "0.10.32-development",
     "web3": "^4.0.3",
     "magic-sdk": "28.11.0",
-    "@developeruche/runtime-sdk": "0.10.20-development",
+    "@developeruche/runtime-sdk": "0.10.56-development",
     "ethers": "6.13.4",
     "@gelatonetwork/relay-sdk": "^4.0.0",
     "@rollup/plugin-commonjs": "^25.0.3",
